@@ -10,11 +10,6 @@ import (
 
 var (
 	C        config.DeployChart
-	Test     string
-	User     string
-	Token    string
-	Scaling  string
-	Creds    string
 	Enabled  bool
 	ChartVar string
 	Env      string

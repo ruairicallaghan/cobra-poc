@@ -10,6 +10,7 @@ import (
 
 var (
 	T            config.TestChart
+	Test         string
 	TestChartCmd = &cobra.Command{
 		Use:   "test-chart",
 		Short: "short",
