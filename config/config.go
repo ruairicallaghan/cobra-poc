@@ -10,20 +10,19 @@ import (
 type TestChart struct {
 	BaseChart `mapstructure:",squash"`
 	Test      string `yaml:"Test"`
-	User      string `yaml:"User"`
 }
 type DeployChart struct {
 	Enabled   bool
 	BaseChart `mapstructure:",squash"`
 	ChartVar  string
 	Env       string
-	User      string
 }
 
 type BaseChart struct {
 	Token   string `yaml:"Token"`
 	Scaling string `yaml:"Scaling"`
 	Creds   string `yaml:"Creds"`
+	User    string
 }
 
 func ViperLoadChartConfig() DeployChart {
