@@ -4,7 +4,7 @@ Copyright © 2022 Ruairi Callaghan <ruairiscallaghan@gmail.com>
 */
 package main
 
-import( 
+import (
 	"github.com/callrua/cobra-poc/cmd"
 	"github.com/spf13/cobra"
 )
