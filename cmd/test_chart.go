@@ -23,29 +23,15 @@ func init() {
 }
 
 func TestCmdFlags(cmd *cobra.Command) {
-	cmd.Flags().StringVar(&Token, "Token", "defaultToken", "Token usage")
-	viper.BindPFlag("Token", cmd.PersistentFlags().Lookup("Token"))
-	cmd.Flags().StringVar(&Scaling, "Scaling", "defaultScaling", "Scaling usage")
-	viper.BindPFlag("Scaling", cmd.PersistentFlags().Lookup("Scaling"))
-	cmd.Flags().StringVar(&Creds, "Creds", "defaultCreds", "Creds usage")
-	viper.BindPFlag("Creds", cmd.PersistentFlags().Lookup("Creds"))
+
 	cmd.Flags().StringVar(&Test, "Test", "defaultTest", "Test usage")
-	viper.BindPFlag("Test", cmd.PersistentFlags().Lookup("Test"))
-	cmd.Flags().StringVar(&User, "User", "defaultUser", "User usage")
-	viper.BindPFlag("User", cmd.PersistentFlags().Lookup("User"))
+	viper.BindPFlag("Test", cmd.Flags().Lookup("Test"))
 }
 
-func runTestChart(_ *cobra.Command, _ []string) {
-	// testConfig := config.ViperLoadTestConfig()
-	// t := config.TestChart{}
+func runTestChart(cmd *cobra.Command, _ []string) {
 	err := viper.Unmarshal(&T)
 	if err != nil {
 		fmt.Println("error unmarshalling")
 	}
-	err = viper.UnmarshalKey("User", &User)
-	if err != nil {
-		fmt.Println("error UnmarshalKey")
-	}
-	T.User = User
 	fmt.Println(T)
 }
