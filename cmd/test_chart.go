@@ -8,31 +8,20 @@ import (
 	"github.com/spf13/viper"
 )
 
-var (
-	T            config.TestChart
-	Test         string
-	TestChartCmd = &cobra.Command{
-		Use:   "test-chart",
-		Short: "short",
-		Long:  "long",
-		Run:   runTestChart,
-	}
-)
-
-func init() {
-	TestCmdFlags(TestChartCmd)
+var TestChartCmd = &cobra.Command{
+	Use:   "test-chart",
+	Short: "short",
+	Long:  "long",
+	Run:   runTestChart,
 }
 
-func TestCmdFlags(cmd *cobra.Command) {
-
-	cmd.Flags().StringVar(&Test, "Test", "defaultTest", "Test usage")
-	viper.BindPFlag("Test", cmd.Flags().Lookup("Test"))
+func init() {
+	TestChartCmd.Flags().String("Test", "defaultTest", "Test usage")
 }
 
 func runTestChart(cmd *cobra.Command, _ []string) {
-	err := viper.Unmarshal(&T)
-	if err != nil {
-		fmt.Println("error unmarshalling")
-	}
-	fmt.Println(T)
+	viper.BindPFlags(cmd.Flags())
+
+	viperConfig := config.ViperLoadTestConfig()
+	fmt.Println(viperConfig)
 }

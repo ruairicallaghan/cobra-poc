@@ -21,14 +21,11 @@ func main() {
 	var rootCmd = &cobra.Command{Use: "resource-generator"}
 	rootCmd.AddCommand(cmd.ChartCmd, cmd.TestChartCmd)
 
-	rootCmd.PersistentFlags().StringVar(&Token, "Token", "defaultToken", "Token usage")
-	viper.BindPFlag("Token", rootCmd.PersistentFlags().Lookup("Token"))
-	rootCmd.PersistentFlags().StringVar(&Scaling, "Scaling", "defaultScaling", "Scaling usage")
-	viper.BindPFlag("Scaling", rootCmd.PersistentFlags().Lookup("Scaling"))
-	rootCmd.PersistentFlags().StringVar(&Creds, "Creds", "defaultCreds", "Creds usage")
-	viper.BindPFlag("Creds", rootCmd.PersistentFlags().Lookup("Creds"))
-	rootCmd.PersistentFlags().StringVar(&User, "User", "defaultUser", "User usage")
-	viper.BindPFlag("User", rootCmd.PersistentFlags().Lookup("User"))
+	rootCmd.PersistentFlags().String("Token", "defaultToken", "Token usage")
+	rootCmd.PersistentFlags().String("Scaling", "defaultScaling", "Scaling usage")
+	rootCmd.PersistentFlags().String("Creds", "defaultCreds", "Creds usage")
+	rootCmd.PersistentFlags().String("User", "defaultUser", "User usage")
+	viper.BindPFlags(rootCmd.PersistentFlags())
 
 	err := rootCmd.Execute()
 	if err != nil {

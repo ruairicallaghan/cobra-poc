@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 
-	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
@@ -27,14 +26,8 @@ type BaseChart struct {
 
 func ViperLoadChartConfig() DeployChart {
 	c := DeployChart{}
-	v := viper.New()
 
-	err := v.BindPFlags(pflag.CommandLine)
-	if err != nil {
-		fmt.Println("error")
-	}
-	pflag.Parse()
-	err = v.Unmarshal(&c)
+	err := viper.Unmarshal(&c)
 	if err != nil {
 		fmt.Println("unmarshal error")
 	}
@@ -43,14 +36,8 @@ func ViperLoadChartConfig() DeployChart {
 
 func ViperLoadTestConfig() TestChart {
 	t := TestChart{}
-	v := viper.New()
 
-	// err := v.BindPFlags(pflag.CommandLine)
-	// if err != nil {
-	// 	fmt.Println("error")
-	// }
-	pflag.Parse()
-	err := v.Unmarshal(&t)
+	err := viper.Unmarshal(&t)
 	if err != nil {
 		fmt.Println("unmarshal error")
 	}
