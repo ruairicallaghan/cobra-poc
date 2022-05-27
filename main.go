@@ -19,7 +19,7 @@ var (
 
 func main() {
 	var rootCmd = &cobra.Command{Use: "resource-generator"}
-	rootCmd.AddCommand(cmd.ChartCmd, cmd.TestChartCmd)
+	rootCmd.AddCommand(cmd.NewChartCommand(), cmd.TestChartCmd)
 
 	rootCmd.PersistentFlags().String("Token", "defaultToken", "Token usage")
 	rootCmd.PersistentFlags().String("Scaling", "defaultScaling", "Scaling usage")

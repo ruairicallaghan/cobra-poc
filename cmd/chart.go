@@ -8,24 +8,25 @@ import (
 	"github.com/spf13/viper"
 )
 
-var ChartCmd = &cobra.Command{
-	Use:   "chart",
-	Short: "short",
-	Long:  "long",
-	Run:   runChart,
-}
+func NewChartCommand() *cobra.Command {
 
-func init() {
-	ChartCmd.Flags().Bool("Enabled", true, "Enabled usage")
-	ChartCmd.Flags().String("ChartVar", "defaultChartVar", "ChartVar usage")
-	ChartCmd.Flags().String("Env", "defaultEnv", "Env usage")
+	var chartCmd = &cobra.Command{
+		Use:   "chart",
+		Short: "short",
+		Long:  "long",
+		Run:   runChart,
+	}
+
+	chartCmd.Flags().Bool("Enabled", true, "Enabled usage")
+	chartCmd.Flags().String("ChartVar", "defaultChartVar", "ChartVar usage")
+	chartCmd.Flags().String("Env", "defaultEnv", "Env usage")
+	chartCmd.Flags().String("Prometheus", "yes", "Env usage")
+	return chartCmd
 
 }
 
 func runChart(cmd *cobra.Command, _ []string) {
 	viper.BindPFlags(cmd.Flags())
-
 	viperConfig := config.ViperLoadChartConfig()
 	fmt.Println(viperConfig)
-
 }

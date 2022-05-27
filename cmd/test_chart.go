@@ -17,11 +17,11 @@ var TestChartCmd = &cobra.Command{
 
 func init() {
 	TestChartCmd.Flags().String("Test", "defaultTest", "Test usage")
+	TestChartCmd.Flags().String("Prometheus", "yes", "Env usage")
 }
 
 func runTestChart(cmd *cobra.Command, _ []string) {
 	viper.BindPFlags(cmd.Flags())
-
 	viperConfig := config.ViperLoadTestConfig()
 	fmt.Println(viperConfig)
 }
