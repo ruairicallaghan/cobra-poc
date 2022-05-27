@@ -5,7 +5,7 @@ on:
 jobs:
   poc:
     name: "hello world"
-    runs_on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
       - name: echo
         run: "echo 'hello-world'"
