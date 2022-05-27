@@ -1,0 +1,11 @@
+name: POC workflow
+on:
+  push
+
+jobs:
+  poc:
+    name: "hello world"
+    runs_on: ubuntu-lates
+    steps:
+      - name: echo
+        run: "echo 'hello-world'"

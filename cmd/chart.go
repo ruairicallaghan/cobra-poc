@@ -5,39 +5,28 @@ import (
 
 	"github.com/callrua/cobra-poc/config"
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 )
 
-var ( 
-	
-	// Local flags
-	Enabled 	bool
-	ChartVar 	string
-	Env				string
-	User			string
-	ChartCmd = &cobra.Command{
-		Use: "chart",
+func NewChartCommand() *cobra.Command {
+
+	var chartCmd = &cobra.Command{
+		Use:   "chart",
 		Short: "short",
-		Long: "long",
-		Run: RunChart,
+		Long:  "long",
+		Run:   runChart,
 	}
-)
 
-func init() {
-	ChartCmdFlags(ChartCmd)
-	rootCmd.AddCommand(ChartCmd)
+	chartCmd.Flags().Bool("Enabled", true, "Enabled usage")
+	chartCmd.Flags().String("ChartVar", "defaultChartVar", "ChartVar usage")
+	chartCmd.Flags().String("Env", "defaultEnv", "Env usage")
+	chartCmd.Flags().String("Prometheus", "yes", "Env usage")
+	return chartCmd
+
 }
 
-func ChartCmdFlags(cmd *cobra.Command) {
-	pflag.Bool("Enabled", true, "enabled or not")
-	pflag.String("ChartVar", "defaultChart", "chart variable help")
-	pflag.String("Env", "uat", "env variable")
-	pflag.String("User", "defaultUser", "user variable")
-}
-
-func RunChart(_ *cobra.Command, _ []string) {
-
-	chartConfig := config.ViperLoadChartConfig()
-	fmt.Println(chartConfig)
-
+func runChart(cmd *cobra.Command, _ []string) {
+	viper.BindPFlags(cmd.Flags())
+	viperConfig := config.ViperLoadChartConfig()
+	fmt.Println(viperConfig)
 }

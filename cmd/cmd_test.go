@@ -2,20 +2,16 @@ package cmd
 
 import (
 	"testing"
-	"fmt"
 
-	"github.com/spf13/cobra"
-	// "github.com/stretchr/testify/assert"
+	"github.com/spf13/viper"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestBasicChartCmd(t *testing.T) {
-	testCmd := &cobra.Command{Use: "chart", Run: RunChart,}
-	ChartCmdFlags(testCmd)
-}
+func Test_ChartCmd(t *testing.T) {
+	cmd := NewChartCommand()
+	cmd.SetArgs([]string{"--Env", "staging"})
+	cmd.Execute()
 
-func TestChartConfigDefaults (t *testing.T) {
-	testCmd := &cobra.Command{Use: "chart", Run: RunChart}
-
-	fmt.Println(testCmd)	
-	// assert.Equal(t, "defaultChart", testConfig.ChartVar)
+	y := viper.Get("Env")
+	assert.Equal(t, "staging", y)
 }

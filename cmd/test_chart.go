@@ -5,30 +5,23 @@ import (
 
 	"github.com/callrua/cobra-poc/config"
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 )
 
-var ( 
-
-	Test string
-	TestChartCmd = &cobra.Command{
-		Use: "test-chart",
-		Short: "short",
-		Long: "long",
-		Run: runTestChart,
-	}
-)
+var TestChartCmd = &cobra.Command{
+	Use:   "test-chart",
+	Short: "short",
+	Long:  "long",
+	Run:   runTestChart,
+}
 
 func init() {
-	TestCmdFlags(TestChartCmd)
-	rootCmd.AddCommand(TestChartCmd)
+	TestChartCmd.Flags().String("Test", "defaultTest", "Test usage")
+	TestChartCmd.Flags().String("Prometheus", "yes", "Env usage")
 }
 
-func TestCmdFlags(cmd *cobra.Command) {
-	pflag.String("Test", "regressionTest", "type of test")
-}
-
-func runTestChart(_ *cobra.Command, _ []string) {
-	testConfig := config.ViperLoadTestConfig()
-	fmt.Println(testConfig)
+func runTestChart(cmd *cobra.Command, _ []string) {
+	viper.BindPFlags(cmd.Flags())
+	viperConfig := config.ViperLoadTestConfig()
+	fmt.Println(viperConfig)
 }

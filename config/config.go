@@ -3,40 +3,33 @@ package config
 import (
 	"fmt"
 
-	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
 type TestChart struct {
 	BaseChart `mapstructure:",squash"`
-	Test	string
+	Test      string `yaml:"Test"`
 }
 type DeployChart struct {
-		Enabled bool
-		BaseChart `mapstructure:",squash"`
-		ChartVar string
-		Env string
-		User string
+	Enabled   bool
+	BaseChart `mapstructure:",squash"`
+	ChartVar  string
+	Env       string
 }
 
 type BaseChart struct {
-	Token string
-	Scaling string
-	Creds string
+	Token   string `yaml:"Token"`
+	Scaling string `yaml:"Scaling"`
+	Creds   string `yaml:"Creds"`
+	User    string
 }
 
-
 func ViperLoadChartConfig() DeployChart {
-	c:= DeployChart{}
-	viper := viper.New()
-	err := viper.BindPFlags(pflag.CommandLine)
+	c := DeployChart{}
+
+	err := viper.Unmarshal(&c)
 	if err != nil {
-		fmt.Println("Error binding")
-	}
-	pflag.Parse()
-	err = viper.Unmarshal(&c)
-	if err != nil {
-		fmt.Println("Error unmarshaling")
+		fmt.Println("unmarshal error")
 	}
 	return c
 }
@@ -44,14 +37,9 @@ func ViperLoadChartConfig() DeployChart {
 func ViperLoadTestConfig() TestChart {
 	t := TestChart{}
 
-	err := viper.BindPFlags(pflag.CommandLine)
+	err := viper.Unmarshal(&t)
 	if err != nil {
-		fmt.Println("Error binding")
-		}
-	pflag.Parse()
-	err = viper.Unmarshal(&t)
-	if err != nil {
-		fmt.Println("Error unmarshaling")
+		fmt.Println("unmarshal error")
 	}
 	return t
 }
