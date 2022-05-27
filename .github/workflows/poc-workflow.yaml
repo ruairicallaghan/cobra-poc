@@ -1,6 +1,8 @@
 name: POC workflow
 on:
-  push
+  push:
+    branches:
+      - main
 
 jobs:
   poc:
